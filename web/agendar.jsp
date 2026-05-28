@@ -6,29 +6,27 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!doctype html>
+
 <html lang="es">
-  <head>
+
+    <head>
     <meta charset="UTF-8" />
     <title>Agendar Turno - TurnApp</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/materialize.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+    
     <link rel="stylesheet" href="css/agendar.css" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
+ 
   </head>
 
   <body>
     <div class="page-center">
       <div class="card card-agenda z-depth-2">
         <div class="card-content">
-          <a href="principal.html" class="blue-text">
+          <a href="index.jsp" class="blue-text">
             <i class="material-icons">arrow_back</i>
           </a>
           <div class="center-align">
@@ -91,12 +89,15 @@
       </div>
     </div>
 
-    <script src="js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        // Activa los menú desplegables (selects)
         var selects = document.querySelectorAll("select");
         M.FormSelect.init(selects);
       });
     </script>
+  </body>
   </body>
 </html>
