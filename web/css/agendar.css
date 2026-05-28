@@ -1,0 +1,71 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  max-height: 100vh;
+  background-color: #f5f6f8;
+  color: #333;
+}
+
+.card-agenda {
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.business-img {
+  max-height: 26vh;
+  padding: 10px;
+}
+
+.btn-custom {
+  background-color: #66bb6a;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.1s ease-in-out;
+  width: 100%;
+}
+
+.btn-custom:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.btn-custom:hover {
+  background-color: #599e5d;
+}
+
+.rating i {
+  color: #ffc107;
+  font-size: medium;
+}
+
+.logo {
+  max-height: 50px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+.center-align h5 {
+  margin-top: 20px;
+  margin-bottom: 4px;
+  font-size: 20px;
+}
+
+.input-field label {
+  font-size: 11px;
+}
+
+.select-wrapper input.select-dropdown {
+  font-size: 12px;
+  height: 29px;
+  margin: 0 0 21px 0;
+}
+
+input:not([type]),
+input[type="date"]:not(.browser-default),
+textarea.materialize-textarea {
+  height: 2rem;
+  font-size: 12px;
+}
