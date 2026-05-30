@@ -28,8 +28,29 @@ public class LoginDAO {
 }
     
     //Método para Consultar si el usuario y el password son correctos
-    public boolean validarUsuario(int usuario, String password){
+
+    public boolean validarUsuario(String usuario, String password){
     boolean encontro = false;
+    String sql = "SELECT * FROM login WHERE password = ?  and num_identificacion = ?";
+    PreparedStatement ps;
+    
+    
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, usuario);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+            encontro = true;
+            }
+            
+        } catch (SQLException ex) {
+            System.getLogger(LoginDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            System.out.println(ex.getMessage());
+
+        }
+
+        return encontro;
     
     }
 }

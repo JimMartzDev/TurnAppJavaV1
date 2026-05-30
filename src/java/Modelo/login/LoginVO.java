@@ -9,28 +9,28 @@ package Modelo.login;
  * @author jimma
  */
 public class LoginVO {
-    private int usuario;
+    private String usuario;
     private String password;
 
     
     // Definir constructor
-    public LoginVO(int usuario, String password) {
+    public LoginVO(String usuario, String password) {
         this.usuario = usuario;
         this.password = password;
     }
     
     public LoginVO() {
-        this.usuario = 0;
+        this.usuario = "";
         this.password = "";
     }
     
     //Definir constructores getters and setters
 
-    public int getUsuario() {
+    public String getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(int usuario) {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 

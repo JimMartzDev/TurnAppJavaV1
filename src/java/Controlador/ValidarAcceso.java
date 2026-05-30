@@ -10,6 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import Modelo.login.LoginDAO;
+import javax.servlet.RequestDispatcher;
 
 /**
  *
@@ -28,20 +30,27 @@ public class ValidarAcceso extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ValidarAcceso</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ValidarAcceso at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        LoginDAO loginDAO=new LoginDAO();
+        boolean resultado = false;
+        RequestDispatcher rd=null;
+        String usuario = request.getParameter("txtUsu");
+        String password = request.getParameter("txtPas");
+        resultado = loginDAO.validarUsuario(usuario, password);
+        if (resultado){
+            rd = request.getRequestDispatcher("index.jsp");
+
+        }else{
+            rd = request.getRequestDispatcher("login.jsp");
+            request.setAttribute("mensaje","Usuario o Contraseña incorrectos"); 
+            
+            
+            }
+        rd.forward(request, response);
+        
+
     }
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

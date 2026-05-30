@@ -26,18 +26,17 @@
           <img src="img/logo.png" class="responsive-img" />
           <p class="grey-text">Bienvenido</p>
           <p class="grey-text text-darken-1">Por favor ingrese sus datos</p>
-          <p>Esta es la prueba para la evidencia adicionando un parrafo</p>
         </div>
 
         <div class="input-field">
           <i class="material-icons prefix">person</i>
-          <input id="usuario" type="text" />
+          <input id="usuario" type="text" name="txtUsu" required/>
           <label for="usuario">Usuario</label>
         </div>
 
         <div class="input-field">
           <i class="material-icons prefix">lock</i>
-          <input id="password" type="password" />
+          <input id="password" type="password" name="txtPas" required />
           <label for="password">Contraseña</label>
         </div>
 
