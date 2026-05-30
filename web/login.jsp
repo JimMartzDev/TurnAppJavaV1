@@ -28,13 +28,13 @@
           <p class="grey-text text-darken-1">Por favor ingrese sus datos</p>
         </div>
 
-        <div class="input-field">
+        <div  action="ValidarAcceso" class="input-field">
           <i class="material-icons prefix">person</i>
           <input id="usuario" type="text" name="txtUsu" required/>
           <label for="usuario">Usuario</label>
         </div>
 
-        <div class="input-field">
+        <div action="ValidarAcceso" class="input-field">
           <i class="material-icons prefix">lock</i>
           <input id="password" type="password" name="txtPas" required />
           <label for="password">Contraseña</label>
@@ -56,6 +56,12 @@
             Ingresar
           </a>
         </div>
+          <% 
+              if(request.getAttribute("mensaje")!=null){
+                  out.print("<div id='errorPas'>"+request.getAttribute("mensaje")+"</div>");
+
+              }
+          %>
 
         <div class="center-align">
           <a
