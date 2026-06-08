@@ -27,14 +27,15 @@
           <p class="grey-text">Bienvenido</p>
           <p class="grey-text text-darken-1">Por favor ingrese sus datos</p>
         </div>
-
-        <div  action="ValidarAcceso" class="input-field">
+          
+          <form action="${pageContext.request.contextPath}/ValidarAcceso" method="POST">
+        <div   class="input-field">
           <i class="material-icons prefix">person</i>
           <input id="usuario" type="text" name="txtUsu" required/>
           <label for="usuario">Usuario</label>
         </div>
 
-        <div action="ValidarAcceso" class="input-field">
+        <div  class="input-field">
           <i class="material-icons prefix">lock</i>
           <input id="password" type="password" name="txtPas" required />
           <label for="password">Contraseña</label>
@@ -49,16 +50,17 @@
         </div>
 
         <div class="center-align">
-          <a
-            class="waves-effect waves-light btn green btn-login"
+          <button
+            type="submit" class="waves-effect waves-light btn green btn-login"
             style="width: 100%"
           >
             Ingresar
-          </a>
+          </button>
         </div>
+              </form>
           <% 
               if(request.getAttribute("mensaje")!=null){
-                  out.print("<div id='errorPas'>"+request.getAttribute("mensaje")+"</div>");
+                  out.print("<div class='center-align red-text text-darken-2' style='margin-top: 10px;'>" + request.getAttribute("mensaje") + "</div>");
 
               }
           %>
@@ -74,11 +76,11 @@
 
         <div class="center-align register">
           ¿No tiene una cuenta?
-          <a href="registro.html">Registrarse</a>
+          <a href="registro.jsp">Registrarse</a>
         </div>
       </div>
     </div>
 
-    <script src="js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>

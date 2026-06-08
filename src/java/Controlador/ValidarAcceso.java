@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Modelo.login.LoginDAO;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.annotation.WebServlet;
 
 /**
  *
  * @author jimma
  */
+@WebServlet(name = "ValidarAcceso", urlPatterns = {"/ValidarAcceso"})
 public class ValidarAcceso extends HttpServlet {
 
     /**
@@ -33,15 +35,16 @@ public class ValidarAcceso extends HttpServlet {
         LoginDAO loginDAO=new LoginDAO();
         boolean resultado = false;
         RequestDispatcher rd=null;
-        String usuario = request.getParameter("txtUsu");
         String password = request.getParameter("txtPas");
-        resultado = loginDAO.validarUsuario(usuario, password);
+        String usuario = request.getParameter("txtUsu");     
+        resultado = loginDAO.validarUsuario(password, usuario);
         if (resultado){
             rd = request.getRequestDispatcher("index.jsp");
 
         }else{
+            
+            request.setAttribute("mensaje","Usuario o contraseña incorrectos"); 
             rd = request.getRequestDispatcher("login.jsp");
-            request.setAttribute("mensaje","Usuario o Contraseña incorrectos"); 
             
             
             }

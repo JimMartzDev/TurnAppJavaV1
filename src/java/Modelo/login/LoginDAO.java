@@ -23,13 +23,13 @@ public class LoginDAO {
     
     // Definimos el constructor
     public LoginDAO(){
-    Conexion conexion = new Conexion("localhost", "turnapp_db", "root", "123456");
+    Conexion conexion = new Conexion("localhost", "turnapp_db", "root", "Chocolate123*");
     con = conexion.getConexion();
 }
     
     //Método para Consultar si el usuario y el password son correctos
 
-    public boolean validarUsuario(String usuario, String password){
+    public boolean validarUsuario(String password, String usuario){
     boolean encontro = false;
     String sql = "SELECT * FROM login WHERE password = ?  and num_identificacion = ?";
     PreparedStatement ps;
@@ -37,8 +37,8 @@ public class LoginDAO {
     
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, usuario);
-            ps.setString(2, password);
+            ps.setString(1, password);
+            ps.setString(2, usuario);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
             encontro = true;
