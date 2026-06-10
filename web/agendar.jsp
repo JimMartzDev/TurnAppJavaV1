@@ -4,6 +4,10 @@
     Author     : jimma
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="es">
+...
 <!DOCTYPE html>
 
 <html lang="es">
@@ -43,20 +47,18 @@
 
                     <div class="center-align">
                         <select name="idEstablecimiento" id="select-establecimiento">
-                            <option value="">-- Selecciona un establecimiento --</option>
-
+                            <option value="">-- Elige un local --</option>
                             <c:forEach items="${listaEstablecimientos}" var="est">
                                 <option value="${est.id_establecimiento}" 
                                         data-direccion="${est.direccion}" 
-                                        data-telefono="${est.telefono}" 
                                         data-calificacion="${est.calificacion}" 
                                         data-imagen="${est.ruta_imagen}">
                                     ${est.nombre_establecimiento}
                                 </option>
                             </c:forEach>
                         </select>
-                      
-                
+
+
                     </div>
 
                     <div class="form-section">
@@ -66,12 +68,12 @@
                                 <option>Juan Pérez</option>
                                 <option>Carlos Ramírez</option>
                             </select>
-                       
+
                         </div>
 
                         <div class="input-field">
                             <input type="date" />
-                         
+
                         </div>
 
                         <div class="input-field">
@@ -81,7 +83,7 @@
                                 <option>10:00 AM</option>
                                 <option>11:00 AM</option>
                             </select>
-                          
+
                         </div>
                     </div>
 

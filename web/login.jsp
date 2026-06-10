@@ -76,7 +76,7 @@
 
         <div class="center-align register">
           ¿No tiene una cuenta?
-          <a href="registro.jsp">Registrarse</a>
+          <a href="usuario/registro.jsp">Registrarse</a>
         </div>
       </div>
     </div>

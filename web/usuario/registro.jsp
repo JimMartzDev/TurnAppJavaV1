@@ -45,12 +45,12 @@
 
               <div class="row">
                 <div class="input-field col s12 m6">
-                  <input id="nombres" type="text" />
+                  <input id="nombres" type="text" required />
                   <label for="nombres">Nombres</label>
                 </div>
 
                 <div class="input-field col s12 m6">
-                  <input id="apellidos" type="text" />
+                  <input id="apellidos" type="text"  required/>
                   <label for="apellidos">Apellidos</label>
                 </div>
 
@@ -65,18 +65,28 @@
                 </div>
 
                 <div class="input-field col s12 m6">
-                  <input id="documento" type="text" />
+                  <input id="documento" type="text" required/>
                   <label for="documento">Número de documento</label>
                 </div>
 
                 <div class="input-field col s12 m6">
-                  <input type="date" />
-                  <label>Fecha de nacimiento</label>
+                    <input type="date" required/>
+                  <label>Fecha de nacimiento </label>
                 </div>
 
                 <div class="input-field col s12 m6">
-                  <input id="correo" type="email" />
+                    <input id="correo" type="email"  required />
                   <label for="correo">Correo electrónico</label>
+                </div>
+                  
+                  <div class="input-field col s12 m6">
+                  <input id="contrasena" type="password"  name="password" required />
+                  <label for="contrasena">Contraseña</label>
+                </div>
+                  
+                  <div class="input-field col s12 m6">
+                      <input id="contrasenaCom" type="password" name="password" required />
+                  <label for="contrasena">Confirmar contraseña</label>
                 </div>
               </div>
 

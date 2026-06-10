@@ -4,9 +4,17 @@
         <servlet-name>ValidarAcceso</servlet-name>
         <servlet-class>Controlador.ValidarAcceso</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegistroController</servlet-name>
+        <servlet-class>Controlador.RegistroController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ValidarAcceso</servlet-name>
         <url-pattern>/ValidarAcceso</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistroController</servlet-name>
+        <url-pattern>/RegistroController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -10,7 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Modelo.login.LoginDAO;
+import Modelo.usuario.UsuarioDAO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebServlet;
 
@@ -32,7 +32,7 @@ public class ValidarAcceso extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        LoginDAO loginDAO=new LoginDAO();
+        UsuarioDAO loginDAO=new UsuarioDAO();
         boolean resultado = false;
         RequestDispatcher rd=null;
         String password = request.getParameter("txtPas");

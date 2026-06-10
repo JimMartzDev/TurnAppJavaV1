@@ -4,6 +4,7 @@
  */
 package Recursos;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -20,6 +21,7 @@ public class Conexion {
     private String clave;
     private String url;
     public Connection con;
+  
     
     //Definimos el Constructor
 

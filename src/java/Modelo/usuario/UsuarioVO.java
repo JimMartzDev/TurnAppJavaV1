@@ -9,11 +9,38 @@ package Modelo.usuario;
  * @author jimma
  */
 public class UsuarioVO {
-    // Atributos de los campos de la base de datos de la tabla
-    private int usuario;
-    private String email;
+    private String usuario;
     private String password;
-    private String rol;
+
+    
+    // Definir constructor
+    public UsuarioVO(String usuario, String password) {
+        this.usuario = usuario;
+        this.password = password;
+    }
+    
+    public UsuarioVO() {
+        this.usuario = "";
+        this.password = "";
+    }
+    
+    //Definir constructores getters and setters
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     
     
 }
