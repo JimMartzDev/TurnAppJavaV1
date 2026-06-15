@@ -46,7 +46,7 @@
             <input type="checkbox" />
             <span>Recordarme</span>
           </label>
-          <a>He olvidado la contraseña</a>
+          <a href="recuperar.jsp" class="teal-text text-darken-2">He olvidado la contraseña</a>
         </div>
 
         <div class="center-align">
