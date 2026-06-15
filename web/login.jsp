@@ -46,7 +46,7 @@
             <input type="checkbox" />
             <span>Recordarme</span>
           </label>
-          <a href="recuperar.jsp" class="teal-text text-darken-2">He olvidado la contraseña</a>
+            <a href="recuperar.jsp" class="blue-text text-darken-2">He olvidado la contraseña</a>
         </div>
 
         <div class="center-align">
@@ -59,9 +59,15 @@
         </div>
               </form>
           <% 
-              if(request.getAttribute("mensaje")!=null){
-                  out.print("<div class='center-align red-text text-darken-2' style='margin-top: 10px;'>" + request.getAttribute("mensaje") + "</div>");
-
+              if(request.getAttribute("mensaje") != null){
+                  String msg = (String) request.getAttribute("mensaje");
+                  
+                  // Si el mensaje contiene la palabra "éxito", usamos verde. Si no, usamos rojo.
+                  String colorClase = (msg.toLowerCase().contains("éxito") || msg.toLowerCase().contains("exito")) 
+                                      ? "green-text text-darken-2" 
+                                      : "red-text text-darken-2";
+                  
+                  out.print("<div class='center-align " + colorClase + "' style='margin-top: 10px; font-weight: 500;'>" + msg + "</div>");
               }
           %>
 

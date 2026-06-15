@@ -128,4 +128,32 @@ public class RegistroDAO {
         }
         return registroVO;
     }
+    
+    public boolean actualizarPassword(String correo, String nuevaPassword) {
+    String sql = "UPDATE usuario SET password = ? WHERE email = ?";
+    PreparedStatement pst = null;
+    boolean actualizado = false;
+
+    try {
+        pst = con.prepareStatement(sql);
+        pst.setString(1, nuevaPassword);
+        pst.setString(2, correo);
+        
+        // executeUpdate devuelve la cantidad de filas afectadas en MySQL
+        int filasAfectadas = pst.executeUpdate();
+        if (filasAfectadas > 0) {
+            actualizado = true;
+            System.out.println("Contraseña actualizada con éxito en la BD para: " + correo);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(RegistroDAO.class.getName()).log(Level.SEVERE, "Error al actualizar contraseña: " + ex.getMessage(), ex);
+    } finally {
+        try {
+            if (pst != null) pst.close();
+        } catch (SQLException e) {
+            Logger.getLogger(RegistroDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    return actualizado;
+}
 }
