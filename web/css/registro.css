@@ -13,12 +13,25 @@ html {
   height: 100vh;
   background-color: #f5f5f5;
 }
+
+
 .register-card {
   width: 100%;
-  max-width: 480px;
+  max-width: 550px; /* Aumentamos el ancho para que las dos columnas respiren */
   border-radius: 8px;
+  box-sizing: border-box; /* Asegura que el padding no sume tamaño extra */
 }
 
+.register-card .input-field {
+  margin-bottom: 8px; /* Materialize usa 20px por defecto, lo bajamos para compactarlo */
+  margin-top: 8px;
+}
+
+.register-card .title {
+  color: #877070;
+  font-weight: 500;
+  margin-top: 10px;
+}
 .btn-custom {
   background-color: #66bb6a;
   border-radius: 8px;

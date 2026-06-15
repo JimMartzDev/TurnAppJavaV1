@@ -27,29 +27,46 @@ public class RegistroDAO {
         String mensaje = "";
     }
 
-    public String registrarUsuario(RegistroVO registroVO, String mensaje) {
-        PreparedStatement pst;
+    public String registrarUsuario(RegistroVO registroVO) {
+    // Inicializamos el mensaje de manera interna
+    String mensaje = "";
+    PreparedStatement pst = null;
 
-        try {
-            pst = con.prepareStatement("INSERT INTO usuario (nombre, apellido, tipo_documento, num_identificacion, fecha_nacimiento, email, password) VALUES (?, ?, ?, ?, ?, ?, ?");
-            pst.setString(1, registroVO.getNombre());
-            pst.setString(2, registroVO.getApellido());
-            pst.setString(3, registroVO.getTipoDocumento());
-            pst.setString(4, registroVO.getNumIdentificacion());
-            pst.setString(5, registroVO.getFechaNac());
-            pst.setString(6, registroVO.getCorreo());
-            pst.setString(7, registroVO.getPassword());
-            pst.executeUpdate();
-            mensaje = "Usuario con identificación" + registroVO.getNumIdentificacion() + "registrado satisfactoriamente";
-            System.out.println("Usuario registrado exitosamente");
-            
-        } catch (SQLException ex) {
-            System.getLogger(RegistroDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-            mensaje="No se pudo registrar el usuario";
-        }
-        return mensaje;
+    try {
+        // CORRECCIÓN: Añadido el paréntesis de cierre ) al final de los VALUES
+        String sql = "INSERT INTO usuario (nombre, apellido, tipo_documento, num_identificacion, fecha_nacimiento, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
+        pst = con.prepareStatement(sql);
+        
+        // Pasamos los datos del VO al PreparedStatement
+        pst.setString(1, registroVO.getNombre());
+        pst.setString(2, registroVO.getApellido());
+        pst.setString(3, registroVO.getTipoDocumento());
+        pst.setString(4, registroVO.getNumIdentificacion());
+        pst.setString(5, registroVO.getFechaNac());
+        pst.setString(6, registroVO.getCorreo());
+        pst.setString(7, registroVO.getPassword());
+        
+        // Ejecutamos la inserción en la base de datos
+        pst.executeUpdate();
+        
+        mensaje = "Usuario con identificación " + registroVO.getNumIdentificacion() + " registrado satisfactoriamente.";
+        System.out.println("Usuario registrado exitosamente en la base de datos.");
+        
+    } catch (SQLException ex) {
+        // Registramos el error en la consola del servidor para poder debugar
+        Logger.getLogger(RegistroDAO.class.getName()).log(Level.SEVERE, "Error al registrar usuario: " + ex.getMessage(), ex);
+        mensaje = "No se pudo registrar el usuario debido a un error interno.";
+    } finally {
+        // Buena práctica: Cerramos el PreparedStatement para liberar memoria de la base de datos
+        try {
+            if (pst != null) pst.close();
+        } catch (SQLException e) {
+            Logger.getLogger(RegistroDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
+    return mensaje;
+}
         
         
         public RegistroVO EncontrarUsuario (String num_identificacion){
