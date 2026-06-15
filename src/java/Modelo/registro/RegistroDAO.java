@@ -155,5 +155,6 @@ public class RegistroDAO {
         }
     }
     return actualizado;
+    }
 }
-}
+ 

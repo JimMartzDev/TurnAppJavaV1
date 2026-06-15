@@ -1,58 +1,74 @@
-body,
-html {
-  height: 100%;
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  background-color: #f2f2f2;
+/* --- CONFIGURACIÓN GENERAL RE-CENTRADA --- */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background-color: #f2f2f2;
 }
 
+/* Restauramos tu contenedor original que centraba perfecto */
 .main-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Permite flexibilidad si se necesita */
+    width: 100%;       /* Asegura que ocupe todo el ancho para poder centrar */
+    background-color: #f5f5f5;
+    box-sizing: border-box;
 }
 
-
+/* Tu tarjeta original con dimensiones controladas */
 .register-card {
-  width: 100%;
-  max-width: 550px; /* Aumentamos el ancho para que las dos columnas respiren */
-  border-radius: 8px;
-  box-sizing: border-box; /* Asegura que el padding no sume tamaño extra */
+    width: 100%;
+    max-width: 550px; 
+    border-radius: 8px;
+    box-sizing: border-box; 
+    margin: 0 auto !important; /* Fuerza el centrado horizontal de la tarjeta */
+}
+
+/* Espacio interno equilibrado (Volvemos a tus márgenes cómodos) */
+.register-card .card-content {
+    padding: 24px !important; /* El valor estándar de Materialize para que respire bien */
 }
 
 .register-card .input-field {
-  margin-bottom: 8px; /* Materialize usa 20px por defecto, lo bajamos para compactarlo */
-  margin-top: 8px;
+    margin-bottom: 8px; 
+    margin-top: 8px;
 }
 
-.register-card .title {
-  color: #877070;
-  font-weight: 500;
-  margin-top: 10px;
-}
-.btn-custom {
-  background-color: #66bb6a;
-  border-radius: 8px;
-}
-
-.btn-custom:hover {
-  background-color: #57a05a;
-}
-
-.btn-custom:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px #2980b9;
-}
-
+/* El logo regresa a su tamaño ideal */
 .center-align img {
-  max-width: 250px;
-  height: auto;
-  display: block;
-  margin: 0 auto;
+    max-width: 230px; 
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
-label input[type="checkbox"] + span {
-  margin-left: 5px;
+/* --- AJUSTE EXCLUSIVO DE LA BARRA DE PESTAÑAS --- */
+.nav-roles {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: -10px !important; /* La bajamos un poquito del borde */
+    margin-bottom: 15px !important;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* --- RESTAURACIÓN DEL BOTÓN ORIGINAL DE TURNAPP --- */
+.btn-custom {
+    background-color: #66bb6a !important; /* El verde característico de tu marca */
+    border-radius: 8px !important;       /* Bordes redondeados */
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease, transform 0.2s ease !important;
+}
+
+/* Efecto al pasar el mouse por encima (Hover) */
+.btn-custom:hover {
+    background-color: #57a05a !important; /* Verde un poco más oscuro */
+}
+
+/* Efecto de hundimiento al hacer clic (Interactividad) */
+.btn-custom:active {
+    transform: translateY(2px) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
 }

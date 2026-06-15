@@ -32,6 +32,7 @@
           <img src="img/logo.png" alt="Logo TurnApp" class="logo-recovery" />
           <h5 class="title">Recuperar Contraseña</h5>
           <p class="grey-text text-darken-1" style="margin: 0;">Ingresa tu correo electrónico para restablecer tu cuenta</p>
+        
         </div>
           
         <!-- Formulario de validación inicial -->

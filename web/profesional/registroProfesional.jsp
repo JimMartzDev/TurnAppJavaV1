@@ -3,7 +3,7 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8" />
-        <title>Registro</title>
+        <title>Registro de Profesional</title>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" />
@@ -15,32 +15,31 @@
             <div class="card register-card z-depth-2">
                 <div class="card-content">
 
-
-                    <div class="row" style="margin-bottom: 0;">
-                        <div class="col s12">
-                            <a href="login.jsp" class="teal-text text-darken-2">
-                                <i class="material-icons">arrow_back</i>
+                    <div class="row nav-roles">
+                        <div class="col s6 center-align col-pestana">
+                            <a href="../usuario/registro.jsp" class="grey-text text-darken-1 link-pestana">
+                                Registro Cliente
+                            </a>
+                        </div>
+                        <div class="col s6 center-align col-pestana pestana-activa">
+                            <a href="registroProfesional.jsp" class="green-text text-darken-1 link-pestana" style="font-weight: 600;">
+                                Registro Profesional
                             </a>
                         </div>
                     </div>
 
-                    <div class="row nav-roles">
-                        <div class="col s6 center-align col-pestana pestana-activa">
-                            <a href="registro.jsp" class="green-text text-darken-1 link-pestana" style="font-weight: 600;">
-                                Registro Cliente
-                            </a>
-                        </div>
-                        <div class="col s6 center-align col-pestana">
-                            <a href="../profesional/registroProfesional.jsp" class="grey-text text-darken-1 link-pestana">
-                                Registro Profesional
+                    <div class="row" style="margin-bottom: 0;">
+                        <div class="col s12">
+                            <a href="../usuario/login.jsp" class="teal-text text-darken-2">
+                                <i class="material-icons">arrow_back</i>
                             </a>
                         </div>
                     </div>
 
                     <div class="center-align" style="margin-bottom: 20px;">
                         <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo TurnApp" class="logo-registro" />
-                        <h5 class="title">Registro</h5>
-                        <p class="grey-text" style="margin: 0;">Crea tu cuenta en menos de un minuto</p>
+                        <h5 class="title">Únete como Profesional</h5>
+                        <p class="grey-text" style="margin: 0;">Registra tus datos y ofrece tus servicios</p>
                         <%
                             String respuesta = (String) request.getAttribute("respuesta");
                             if (respuesta != null) {
@@ -53,7 +52,7 @@
                         %>
                     </div>
 
-                    <form action="${pageContext.request.contextPath}/RegistroController" method="POST">
+                    <form action="${pageContext.request.contextPath}/ProfesionalController" method="POST">
                         <input type="hidden" name="accion" value="registrar" />
                         <div class="row">
                             <div class="input-field col s12 m6">
@@ -97,8 +96,14 @@
                             </div>
 
                             <div class="input-field col s12 m6">
-                                <input id="contrasenaCom" type="password" name="passwordConfirm" required class="validate" />
-                                <label for="contrasenaCom">Confirmar contraseña</label>
+                                <select name="especialidadPrincipal" required>
+                                    <option value="" disabled selected>Seleccione</option>
+                                    <option value="Barbería">Barbería</option>
+                                    <option value="Peluquería">Estilista / Peluquería</option>
+                                    <option value="Manicura">Manicura / Pedicura</option>
+                                    <option value="Maquillaje">Maquillaje</option>
+                                </select>
+                                <label>Especialidad Principal</label>
                             </div>
                         </div>
 
@@ -127,7 +132,6 @@
         </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 var elems = document.querySelectorAll("select");
