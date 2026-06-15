@@ -27,9 +27,20 @@
                         <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo TurnApp" class="logo-registro" />
                         <h5 class="title">Registro</h5>
                         <p class="grey-text" style="margin: 0;">Crea tu cuenta en menos de un minuto</p>
+                        <%
+                            String respuesta = (String) request.getAttribute("respuesta");
+                            if (respuesta != null) {
+                        %>
+                        <div class="card-panel teal lighten-4 teal-text text-darken-4" style="margin-top: 15px; padding: 10px; border-radius: 8px;">
+                            <%= respuesta%>
+                        </div>
+                        <%
+                            }
+                        %>
                     </div>
 
-                    <form action="TuServletDeRegistro" method="POST">
+                    <form action="${pageContext.request.contextPath}/RegistroController" method="POST">
+                        <input type="hidden" name="accion" value="registrar" />
                         <div class="row">
                             <div class="input-field col s12 m6">
                                 <input id="nombres" type="text" name="nombres" required class="validate" />
@@ -44,9 +55,9 @@
                             <div class="input-field col s12 m6">
                                 <select name="tipoDocumento" required>
                                     <option value="" disabled selected>Seleccione</option>
-                                    <option value="1">CC</option>
-                                    <option value="2">CE</option>
-                                    <option value="3">Pasaporte</option>
+                                    <option value="CC">CC</option>
+                                    <option value="CE">CE</option>
+                                    <option value="Pasaporte">Pasaporte</option>
                                 </select>
                                 <label>Tipo de documento</label>
                             </div>

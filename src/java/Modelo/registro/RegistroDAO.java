@@ -50,7 +50,7 @@ public class RegistroDAO {
         // Ejecutamos la inserción en la base de datos
         pst.executeUpdate();
         
-        mensaje = "Usuario con identificación " + registroVO.getNumIdentificacion() + " registrado satisfactoriamente.";
+        mensaje = "Usuario registrado satisfactoriamente.";
         System.out.println("Usuario registrado exitosamente en la base de datos.");
         
     } catch (SQLException ex) {
