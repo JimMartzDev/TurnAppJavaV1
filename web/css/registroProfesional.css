@@ -35,7 +35,7 @@ body, html {
 }
 
 .register-card .title {
-    color: #877070;
+    color: #4F4F4FDE;
     font-weight: 500;
     margin-top: 10px;
 }
@@ -94,3 +94,4 @@ label input[type="checkbox"] + span {
 .pestana-activa {
     border-bottom: 3px solid #66bb6a;
 }
+

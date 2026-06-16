@@ -19,8 +19,9 @@ public class ProfesionalDAO {
     }
 
     /**
-     * Registra un Profesional aplicando una Transacción Segura en las tablas usuario y profesional.
-     * Retorna un String con el mensaje de éxito o error, tal como lo haces en tu RegistroDAO.
+     * Registra un Profesional aplicando una Transacción Segura en las tablas
+     * usuario y profesional. Retorna un String con el mensaje de éxito o error,
+     * tal como lo haces en tu RegistroDAO.
      */
     public String registrarProfesional(RegistroVO registroVO, ProfesionalVO profesionalVO) {
         String mensaje = "";
@@ -34,7 +35,7 @@ public class ProfesionalDAO {
 
             // 2. Consulta 1: Insertar datos básicos en la tabla 'usuario' (Asegúrate de incluir id_rol si tu BD lo pide, o déjalo según tus columnas)
             // Usamos RETURN_GENERATED_KEYS para atrapar el ID generado automáticamente
-            String sqlUsuario = "INSERT INTO usuario (nombre, apellido, tipo_documento, num_identificacion, fecha_nacimiento, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sqlUsuario = "INSERT INTO usuario (nombre, apellido, tipo_documento, num_identificacion, fecha_nacimiento, email, password, rol_id) VALUES (?, ?, ?, ?, ?, ?, ?, 2)";
             pstUsuario = con.prepareStatement(sqlUsuario, Statement.RETURN_GENERATED_KEYS);
 
             pstUsuario.setString(1, registroVO.getNombre());
@@ -51,7 +52,7 @@ public class ProfesionalDAO {
             if (filasUsuario > 0) {
                 // Recuperamos el ID autoincremental que generó MySQL para el usuario
                 rsKeys = pstUsuario.getGeneratedKeys();
-                
+
                 if (rsKeys.next()) {
                     int idUsuarioGenerado = rsKeys.getInt(1);
 
@@ -100,9 +101,15 @@ public class ProfesionalDAO {
         } finally {
             // Cerramos de forma segura todos los flujos como lo haces tú
             try {
-                if (rsKeys != null) rsKeys.close();
-                if (pstUsuario != null) pstUsuario.close();
-                if (pstProfesional != null) pstProfesional.close();
+                if (rsKeys != null) {
+                    rsKeys.close();
+                }
+                if (pstUsuario != null) {
+                    pstUsuario.close();
+                }
+                if (pstProfesional != null) {
+                    pstProfesional.close();
+                }
                 if (con != null) {
                     con.setAutoCommit(true); // Devolvemos la conexión a su comportamiento por defecto
                 }

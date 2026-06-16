@@ -1,15 +1,11 @@
 <%-- 
-    Document   : agendar
-    Created on : 28/05/2026, 1:58:00 p. m.
+    Document   : agendar 
+    Created on : 28/05/2026, 1:58:00 p. m.
     Author     : jimma
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="es">
-...
-<!DOCTYPE html>
-
 <html lang="es">
 
     <head>
@@ -20,9 +16,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-
         <link rel="stylesheet" href="css/agendar.css" />
-
     </head>
 
     <body>
@@ -38,61 +32,67 @@
                         <p class="grey-text">Completa los datos para agendar tu cita</p>
                     </div>
 
-                    <div class="center-align">
-                        <img
-                            src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f"
-                            class="business-img"
-                            />
-                    </div>
+                    <form action="CitaController" method="POST">
 
-                    <div class="center-align">
-                        <select name="idEstablecimiento" id="select-establecimiento">
-                            <option value="">-- Elige un local --</option>
-                            <c:forEach items="${listaEstablecimientos}" var="est">
-                                <option value="${est.id_establecimiento}" 
-                                        data-direccion="${est.direccion}" 
-                                        data-calificacion="${est.calificacion}" 
-                                        data-imagen="${est.ruta_imagen}">
-                                    ${est.nombre_establecimiento}
-                                </option>
-                            </c:forEach>
-                        </select>
+                        <div class="form-section">
 
+                            <div class="input-field">
+                                <select name="idEstablecimiento" id="select-establecimiento" required>
+                                    <option value="" disabled selected>-- Elige un local --</option>
+                                    <c:forEach items="${listaEstablecimientos}" var="est">
+                                        <option value="${est.id_establecimiento}" 
+                                                data-direccion="${est.direccion}" 
+                                                data-calificacion="${est.calificacion}" 
+                                                data-imagen="${est.ruta_imagen}">
+                                            ${est.nombre_establecimiento}
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </div>
 
-                    </div>
+                            <div class="input-field">
+                                <select name="idProfesional" id="select-profesional" required>
+                                    <option value="" disabled selected>-- Elige un profesional --</option>
+                                    <option value="1">Juan Pérez</option>
+                                    <option value="2">Carlos Ramírez</option>
+                                </select>
+                            </div>
 
-                    <div class="form-section">
-                        <div class="input-field">
-                            <select>
-                                <option disabled selected>-- Elige un profesional --</option>
-                                <option>Juan Pérez</option>
-                                <option>Carlos Ramírez</option>
-                            </select>
+                            <div class="input-field">
+                                <select name="idServicio" id="select-servicio" required>
+                                    <option value="" disabled selected>-- Selecciona el servicio --</option>
+                                    <option value="1">Corte de Cabello</option>
+                                    <option value="2">Barba y Perfilado</option>
+                                </select>
+                            </div>
+
+                            <div class="input-field">
+                                <input type="date" name="fechaCita" id="fecha-cita" required />
+                            </div>
+
+                            <div class="input-field">
+                                <select name="horaCita" id="select-hora" required>
+                                    <option value="" disabled selected>-- Selecciona la hora --</option>
+                                    <option value="09:00:00">09:00 AM</option>
+                                    <option value="10:00:00">10:00 AM</option>
+                                    <option value="11:00:00">11:00 AM</option>
+                                </select>
+                            </div>
+
+                            <div class="input-field">
+                                <textarea name="notasCliente" id="notas-cliente" class="materialize-textarea"></textarea>
+                                <label for="notas-cliente">Notas o requerimientos especiales (Opcional)</label>
+                            </div>
 
                         </div>
 
-                        <div class="input-field">
-                            <input type="date" />
-
+                        <div class="center-align" style="margin-top: 30px;">
+                            <button type="submit" class="waves-effect waves-light btn btn-custom black-text">
+                                Agendar
+                            </button>
                         </div>
 
-                        <div class="input-field">
-                            <select>
-                                <option disabled selected>-- Selecciona la hora --</option>
-                                <option>09:00 AM</option>
-                                <option>10:00 AM</option>
-                                <option>11:00 AM</option>
-                            </select>
-
-                        </div>
-                    </div>
-
-                    <div class="center-align">
-                        <a class="waves-effect waves-light btn btn-custom black-text">
-                            Agendar
-                        </a>
-                    </div>
-                </div>
+                    </form> </div>
             </div>
         </div>
 
@@ -100,11 +100,13 @@
 
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                // Activa los menú desplegables (selects)
+                // Activa todos los elementos select y componentes de texto de Materialize
                 var selects = document.querySelectorAll("select");
                 M.FormSelect.init(selects);
+
+                var textareas = document.querySelectorAll(".materialize-textarea");
+                M.CharacterCounter.init(textareas);
             });
         </script>
     </body>
-</body>
 </html>

@@ -18,7 +18,7 @@
 
                     <div class="row" style="margin-bottom: 0;">
                         <div class="col s12">
-                            <a href="login.jsp" class="teal-text text-darken-2">
+                            <a href="../login.jsp" class="teal-text text-darken-2">
                                 <i class="material-icons">arrow_back</i>
                             </a>
                         </div>
@@ -31,7 +31,7 @@
                             </a>
                         </div>
                         <div class="col s6 center-align col-pestana">
-                            <a href="../profesional/registroProfesional.jsp" class="grey-text text-darken-1 link-pestana">
+                            <a href="../usuario/registroProfesional.jsp" class="grey-text text-darken-1 link-pestana">
                                 Registro Profesional
                             </a>
                         </div>
@@ -39,7 +39,7 @@
 
                     <div class="center-align" style="margin-bottom: 20px;">
                         <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo TurnApp" class="logo-registro" />
-                        <h5 class="title">Registro</h5>
+                        <h6 class="title">Registro</h6>
                         <p class="grey-text" style="margin: 0;">Crea tu cuenta en menos de un minuto</p>
                         <%
                             String respuesta = (String) request.getAttribute("respuesta");
