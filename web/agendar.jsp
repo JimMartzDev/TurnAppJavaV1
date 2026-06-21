@@ -36,25 +36,11 @@
 
                         <div class="form-section">
 
-                            <div class="input-field">
-                                <select name="idEstablecimiento" id="select-establecimiento" required>
-                                    <option value="" disabled selected>-- Elige un local --</option>
-                                    <c:forEach items="${listaEstablecimientos}" var="est">
-                                        <option value="${est.id_establecimiento}" 
-                                                data-direccion="${est.direccion}" 
-                                                data-calificacion="${est.calificacion}" 
-                                                data-imagen="${est.ruta_imagen}">
-                                            ${est.nombre_establecimiento}
-                                        </option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-
+                         
                             <div class="input-field">
                                 <select name="idProfesional" id="select-profesional" required>
                                     <option value="" disabled selected>-- Elige un profesional --</option>
-                                    <option value="1">Juan Pérez</option>
-                                    <option value="2">Carlos Ramírez</option>
+                                 
                                 </select>
                             </div>
 

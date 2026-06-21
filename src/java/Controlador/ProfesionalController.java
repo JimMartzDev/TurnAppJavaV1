@@ -1,7 +1,8 @@
 package Controlador;
 
+// CORRECCIÓN DE IMPORTS: Apuntando al paquete correcto 'Modelo.profesional'
+
 import Modelo.registro.ProfesionalDAO;
-import Modelo.registro.ProfesionalVO;
 import Modelo.registro.RegistroVO;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -16,22 +17,18 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ProfesionalController", urlPatterns = {"/ProfesionalController"})
 public class ProfesionalController extends HttpServlet {
 
-    /**
-     * Procesa las peticiones tanto para los métodos HTTP GET como POST.
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        // Capturamos la acción enviada por el formulario oculto o el botón
         String accion = request.getParameter("accion");
         
-        // Instanciamos el DAO encargado de la persistencia
+        // Instanciamos el DAO (ahora mapeado correctamente al nuevo paquete)
         ProfesionalDAO profesionalDAO = new ProfesionalDAO();
 
         if (accion != null && accion.equals("registrar")) {
             try {
-                // 1. CAPTURAR LOS DATOS DEL FORMULARIO (Se usan los 'name' del JSP)
+                // 1. CAPTURAR LOS DATOS DEL FORMULARIO
                 String nombres = request.getParameter("nombres");
                 String apellidos = request.getParameter("apellidos");
                 String tipoDocumento = request.getParameter("tipoDocumento");
@@ -51,20 +48,12 @@ public class ProfesionalController extends HttpServlet {
                 registroVO.setCorreo(correo);
                 registroVO.setPassword(password);
 
-                // 3. LLENAR EL OBJETO PROFESIONAL VO (Datos del oficio para su tabla)
-                // Usamos el constructor de la Opción B: el ID de usuario se asignará en el DAO,
-                // y pasamos el ID de establecimiento 1 por defecto (temporal), junto a la especialidad.
-                int idEstablecimientoDefecto = 1; 
-                ProfesionalVO profesionalVO = new ProfesionalVO(0, idEstablecimientoDefecto, especialidadPrincipal);
+                // 3. EJECUTAR LA TRANSACCIÓN MEDIANTE EL DAO
+                // Sincronizado con tu método: registrarProfesional(RegistroVO, String)
+                String resultadoBusqueda = profesionalDAO.registrarProfesional(registroVO, especialidadPrincipal);
 
-                // 4. EJECUTAR LA TRANSACCIÓN MEDIANTE EL DAO
-                String resultadoBusqueda = profesionalDAO.registrarProfesional(registroVO, profesionalVO);
-
-                // 5. RETORNAR LA RESPUESTA A LA VISTA
-                // Guardamos el mensaje devuelto ("Profesional registrado satisfactoriamente" o el error)
+                // 4. RETORNAR LA RESPUESTA A LA VISTA
                 request.setAttribute("respuesta", resultadoBusqueda);
-                
-                // Redireccionamos de vuelta al formulario para que el usuario vea el aviso en pantalla
                 request.getRequestDispatcher("usuario/registroProfesional.jsp").forward(request, response);
 
             } catch (Exception e) {
@@ -75,7 +64,6 @@ public class ProfesionalController extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Métodos HttpServlet. Click en el signo + para mostrar código.">
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -92,5 +80,4 @@ public class ProfesionalController extends HttpServlet {
     public String getServletInfo() {
         return "Controlador para el registro de profesionales en TurnApp";
     }
-    // </editor-fold>
 }
