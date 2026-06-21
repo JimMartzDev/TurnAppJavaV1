@@ -1,141 +1,39 @@
-body {
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  min-height: 100vh;
-
-  max-height: 100vh;
-
-  background-color: #f5f6f8;
-
-  color: #333;
-
+body.flex-container {
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;     /* Centrado vertical */
+    min-height: 100vh;       /* Obliga al cuerpo a medir toda la pantalla */
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
-
-
-.card-agenda {
-
-  border-radius: 12px;
-
-  padding: 10px;
-
+img.responsive-img{
+    max-width: 250px;
+    max-height: 250px;
 }
 
-
-
-.business-img {
-
-  max-height: 26vh;
-
-  padding: 10px;
-
+/* Controla el ancho de la tarjeta para que mantenga buena forma */
+.card {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 10px;
 }
 
-
-
-.btn-custom {
-
-  background-color: #66bb6a;
-
-  border-radius: 8px;
-
-  font-weight: 600;
-
-  letter-spacing: 0.5px;
-
-  transition: all 0.1s ease-in-out;
-
-  width: 100%;
-
+/* Aplica Flexbox a la fila de recordar contraseña */
+.options-row {
+    display: flex;
+    justify-content: space-between; /* Separa el checkbox del enlace hacia los extremos */
+    align-items: center;            /* Los alinea perfectamente en el centro vertical */
+    margin-top: 15px;
+    margin-bottom: 25px;
 }
 
-
-
-.btn-custom:active {
-
-  transform: translateY(2px);
-
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
-
+/* Espaciado superior para el botón de Google y la sección de registro */
+.btn-google-container {
+    margin-top: 15px;
 }
 
-
-
-.btn-custom:hover {
-
-  background-color: #599e5d;
-
+.register {
+    margin-top: 25px;
 }
 
-
-
-.rating i {
-
-  color: #ffc107;
-
-  font-size: medium;
-
-}
-
-
-
-.logo {
-
-  max-height: 50px;
-
-  width: auto;
-
-  display: block;
-
-  margin: 0 auto;
-
-}
-
-.center-align h5 {
-
-  margin-top: 20px;
-
-  margin-bottom: 4px;
-
-  font-size: 20px;
-
-}
-
-
-
-.input-field label {
-
-  font-size: 11px;
-
-}
-
-
-
-.select-wrapper input.select-dropdown {
-
-  font-size: 12px;
-
-  height: 29px;
-
-  margin: 0 0 21px 0;
-
-}
-
-
-
-input:not([type]),
-
-input[type="date"]:not(.browser-default),
-
-textarea.materialize-textarea {
-
-  height: 2rem;
-
-  font-size: 12px;
-
-}

@@ -22,10 +22,12 @@ public class RegistroController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String mensaje = "";
-        RequestDispatcher rd = null;
         
+        String mensaje = "";
         String accion = request.getParameter("accion");
+        
+        // Definimos la vista por defecto a la que siempre responderá este controlador
+        String vistaDestino = "usuario/registro.jsp";
         
         if (accion != null && accion.equals("registrar")) {
             
@@ -44,15 +46,13 @@ public class RegistroController extends HttpServlet {
                 mensaje = "La contraseña no coincide.";
             } else {
                 
-                // 3. NUEVO - FILTRO 2: Validar mayoría de edad
+                // 3. FILTRO 2: Validar mayoría de edad
                 boolean esMayorDeEdad = false;
                 try {
                     if (fechaNacimiento != null && !fechaNacimiento.equals("")) {
-                        // Convertimos el String que viene del formulario a un objeto LocalDate
                         LocalDate fechaNac = LocalDate.parse(fechaNacimiento);
                         LocalDate fechaActual = LocalDate.now();
                         
-                        // Calculamos el periodo de tiempo entre la fecha de nacimiento y hoy
                         int edad = Period.between(fechaNac, fechaActual).getYears();
                         
                         if (edad >= 18) {
@@ -67,7 +67,7 @@ public class RegistroController extends HttpServlet {
                     mensaje = "Debes ser mayor de edad para registrarte en la aplicación.";
                 } else {
                     
-                    // Si es mayor de edad, procedemos con las validaciones de la Base de Datos
+                    // Conexión a la Base de Datos
                     registroDAO = new RegistroDAO();
                     
                     // FILTRO 3: Validar si el documento ya existe
@@ -84,22 +84,29 @@ public class RegistroController extends HttpServlet {
                             mensaje = "El correo electrónico ya se encuentra registrado.";
                         } else {
                             
-                            // ÉXITO: Si pasa todos los filtros de seguridad y negocio, se registra
+                            // ÉXITO: Registro Exitoso
                             registroVO = new RegistroVO(nombres, apellidos, tipoDocumento, documento, fechaNacimiento, correo, password);
                             mensaje = registroDAO.registrarUsuario(registroVO);
+                            
+                            // [OPCIONAL] Si el mensaje del DAO contiene "éxito", podrías redirigir a un login
+                            if (mensaje.toLowerCase().contains("éxito") || mensaje.toLowerCase().contains("exito")) {
+                                // Vista alternativa en caso de éxito total (descomentar si tienes un login.jsp)
+                                // vistaDestino = "login.jsp"; 
+                            }
                         }
                     }
                 }
             }
             
-            // 4. Enviamos la respuesta de vuelta a la vista
+            // Enviamos el mensaje de feedback (Tu scriptlet JSP lo leerá aquí)
             request.setAttribute("respuesta", mensaje);
-            rd = request.getRequestDispatcher("usuario/registro.jsp");
-            rd.forward(request, response);
         }
+        
+        // 4. Despacho seguro: Siempre redirige a la vista correspondiente, previniendo pantallas en blanco
+        RequestDispatcher rd = request.getRequestDispatcher(vistaDestino);
+        rd.forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -114,7 +121,6 @@ public class RegistroController extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Controlador de Registro de Usuarios";
     }
-    // </editor-fold>
 }

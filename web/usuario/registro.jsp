@@ -42,15 +42,17 @@
                         <h6 class="title">Registro</h6>
                         <p class="grey-text" style="margin: 0;">Crea tu cuenta en menos de un minuto</p>
                         <%
-                            String respuesta = (String) request.getAttribute("respuesta");
-                            if (respuesta != null) {
-                        %>
-                        <div class="card-panel teal lighten-4 teal-text text-darken-4" style="margin-top: 15px; padding: 10px; border-radius: 8px;">
-                            <%= respuesta%>
-                        </div>
-                        <%
-                            }
-                        %>
+                    if (request.getAttribute("respuesta") != null) {
+                        String msg = (String) request.getAttribute("respuesta");
+                        String colorClase = (msg.toLowerCase().contains("éxito") || msg.toLowerCase().contains("exito"))
+                                ? "green-text text-darken-2"
+                                : "red-text text-darken-2";
+
+                        out.print("<div class='center-align " + colorClase + "' style='margin-top: 10px; font-weight: 500;'>" + msg + "</div>");
+                    }
+                %>
+                        
+                    
                     </div>
 
                     <form action="${pageContext.request.contextPath}/RegistroController" method="POST">
