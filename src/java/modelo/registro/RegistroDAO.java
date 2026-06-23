@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Modelo.registro;
+package modelo.registro;
 //importamos librerías
 
-import Modelo.usuario.UsuarioVO;
+import modelo.usuario.UsuarioVO;
 import Recursos.Conexion;
 import java.util.LinkedList;
 import java.sql.*;

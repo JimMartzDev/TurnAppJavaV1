@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Controlador;
+package controlador;
 
-
-import Modelo.cita.CitaDAO;
-import Modelo.cita.CitaVO;
+import modelo.registro.ProfesionalDAO;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,97 +11,136 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author jimma
- */
-@WebServlet("/CitaController")
+// REPARADO: Eliminado el import de ServicioDAO que no existe
+import modelo.cita.CitaDAO;
+import modelo.cita.CitaVO;
+
+@WebServlet(name = "CitaController", urlPatterns = {"/CitaController"})
 public class CitaController extends HttpServlet {
 
-    /**
-     * Procesa las peticiones HTTP POST que envía el formulario de agendar.jsp
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        // 1. Validar o recuperar la sesión del cliente logueado
-        HttpSession session = request.getSession();
-        Integer idCliente = (Integer) session.getAttribute("id_cliente");
-        
-        // Comodín temporal para pruebas en desarrollo si no hay sesión activa:
-        if (idCliente == null) {
-            idCliente = 1; 
+
+        request.setCharacterEncoding("UTF-8");
+
+        String accion = request.getParameter("accion");
+        if (accion == null) {
+            accion = "cargarPantalla";
         }
 
-        // 2. Recuperar los parámetros enviados por el formulario usando los names del JSP
-        String idProfesionalStr = request.getParameter("idProfesional");
-        String idServicioStr = request.getParameter("idServicio");
-        String fechaCitaStr = request.getParameter("fechaCita");   // Captura "yyyy-MM-dd"
-        String horaCitaStr = request.getParameter("horaCita");     // Captura "HH:mm:ss"
-        String notasCliente = request.getParameter("notasCliente");
-
-        String mensajeResultado = "";
-
-        try {
-            // Validar que los campos obligatorios no vengan vacíos
-            if (idProfesionalStr != null && idServicioStr != null && fechaCitaStr != null && horaCitaStr != null) {
-                
-                int idProfesional = Integer.parseInt(idProfesionalStr);
-                int idServicio = Integer.parseInt(idServicioStr);
-
-                // COHERENCIA: Combinar los Strings de fecha y hora para cumplir con el tipo DATETIME
-                String fechaHoraCombinada = fechaCitaStr + " " + horaCitaStr; // Formato: "yyyy-MM-dd HH:mm:ss"
-
-                CitaDAO citaDAO = new CitaDAO();
-                
-                // 3. Cruzar datos en el DAO para obtener la FK de la tabla intermedia
-                int idProfServ = citaDAO.obtenerIdProfesionalServicio(idProfesional, idServicio);
-                
-
-                if (idProfServ > 0) {
-                    // 4. Instanciar el Objeto de Valor (CitaVO) con el estado inicial "Pendiente"
-                    CitaVO nuevaCita = new CitaVO();
-                    nuevaCita.setIdCliente(idCliente);
-                    nuevaCita.setFechaHora(fechaHoraCombinada);
-                    nuevaCita.setEstado("Pendiente"); // Valor del ENUM de tu BD
-                    nuevaCita.setIdProfesionalServicio(idProfServ);
-                    nuevaCita.setNotasCliente(notasCliente);
-
-                    // 5. Enviar el VO al DAO para ejecutar la inserción
-                    mensajeResultado = citaDAO.registrarCita(nuevaCita);
-                    
-                    // Si el mensaje del DAO es el de éxito, redirigimos positivamente
-                    if (mensajeResultado.contains("satisfactoriamente")) {
-                        response.sendRedirect("misCitas.jsp?mensaje=" + mensajeResultado);
-                        return; // Detiene la ejecución para evitar doble redirección
-                    }
-                    
-                } else {
-                    mensajeResultado = "Error: El profesional seleccionado no ofrece ese servicio.";
-                }
-            } else {
-                mensajeResultado = "Error: Faltan datos obligatorios para procesar el turno.";
-            }
-
-        } catch (NumberFormatException ex) {
-            Logger.getLogger(CitaController.class.getName()).log(Level.SEVERE, "Error de conversión numérica: " + ex.getMessage(), ex);
-            mensajeResultado = "Los identificadores de profesional o servicio son inválidos.";
-        } catch (Exception ex) {
-            Logger.getLogger(CitaController.class.getName()).log(Level.SEVERE, "Error inesperado en el controlador: " + ex.getMessage(), ex);
-            mensajeResultado = "Ocurrió un error inesperado al procesar la solicitud.";
+        switch (accion) {
+            case "cargarPantalla":
+                cargarDatosAgendamiento(request, response);
+                break;
+            case "registrar":
+                ejecutarRegistro(request, response);
+                break;
+            case "consultarDisponibilidad":
+                procesarDisponibilidadAjax(request, response);
+                break;
+            default:
+                response.sendRedirect("agendar.jsp");
+                break;
         }
-
-        // Si el flujo falla o no se concreta la inserción, regresa al formulario mostrando el error
-        response.sendRedirect("agendar.jsp?error=" + mensajeResultado);
     }
 
-    /**
-     * Opcional: Redirige al formulario si intentan acceder al Servlet escribiendo la URL directamente (GET)
-     */
+    private void cargarDatosAgendamiento(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        // Únicamente traemos la lista de profesionales
+        String sql = "SELECT p.*, s.nombre_servicio FROM profesional p JOIN ..."; // Referencia mental de tu DB
+        ProfesionalDAO profesionalDao = new ProfesionalDAO();
+        request.setAttribute("listaProfesionales", profesionalDao.listarProfesionales());
+
+        request.getRequestDispatcher("agendar.jsp").forward(request, response);
+    }
+
+    private void procesarDisponibilidadAjax(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        // Definición estricta de cabeceras HTTP para transferencia de datos estructurados
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        // Bloque defensivo para evitar excepciones de parseo si los parámetros llegan nulos
+        String strIdProfesional = request.getParameter("idProfesional");
+        String fechaCita = request.getParameter("fechaCita");
+
+        List<String> horasOcupadas = new java.util.ArrayList<>();
+
+        if (strIdProfesional != null && fechaCita != null && !fechaCita.isEmpty()) {
+            try {
+                int idProfesional = Integer.parseInt(strIdProfesional);
+                CitaDAO citaDao = new CitaDAO();
+                horasOcupadas = citaDao.listarHorasOcupadas(idProfesional, fechaCita);
+            } catch (NumberFormatException e) {
+                System.err.println("Error de conversión de datos numéricos en el controlador: " + e.getMessage());
+            }
+        }
+
+        if (horasOcupadas == null) {
+            horasOcupadas = new java.util.ArrayList<>();
+        }
+
+        // Serialización manual eficiente a JSON utilizando StringBuilder
+        try (PrintWriter out = response.getWriter()) {
+            StringBuilder json = new StringBuilder("[");
+            for (int i = 0; i < horasOcupadas.size(); i++) {
+                json.append("\"").append(horasOcupadas.get(i)).append("\"");
+                if (i < horasOcupadas.size() - 1) {
+                    json.append(",");
+                }
+            }
+            json.append("]");
+
+            out.print(json.toString());
+            out.flush(); // Fuerza la salida del flujo antes del cierre automático del bloque try-with-resources
+        }
+    }
+
+    private void ejecutarRegistro(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession sesion = request.getSession();
+        Integer idCliente = (Integer) sesion.getAttribute("idUsuarioLogueado");
+
+        if (idCliente == null) {
+            idCliente = 1; // Respaldo para pruebas locales
+        }
+
+        int idProfesional = Integer.parseInt(request.getParameter("idProfesional"));
+        int idServicio = Integer.parseInt(request.getParameter("idServicio")); // Recibe el parámetro oculto
+        String fechaCita = request.getParameter("fechaCita");
+        String horaCita = request.getParameter("horaCita");
+        String notasCliente = request.getParameter("notasCliente");
+
+        CitaVO cita = new CitaVO(idCliente, idProfesional, idServicio, fechaCita, horaCita, notasCliente);
+        CitaDAO citaDao = new CitaDAO();
+
+        boolean operacionExitosa = citaDao.registrarCita(cita);
+
+        if (operacionExitosa) {
+            request.setAttribute("mensajeExito", "¡Excelente! Tu turno ha sido agendado exitosamente.");
+        } else {
+            request.setAttribute("mensajeError", "No se pudo completar el agendamiento. Por favor, verifica e intenta de nuevo.");
+        }
+
+        // Volvemos a cargar únicamente los profesionales para el formulario de vuelta
+        ProfesionalDAO profesionalDao = new ProfesionalDAO();
+        request.setAttribute("listaProfesionales", profesionalDao.listarProfesionales());
+
+        request.getRequestDispatcher("agendar.jsp").forward(request, response);
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("agendar.jsp");
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 }

@@ -3,11 +3,19 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    max-height: 100vh;
     background-color: #f5f6f8;
     color: #333;
 }
 
+body, .page-center {
+    overflow-x: hidden; /* Evita cualquier barra de desplazamiento horizontal residual */
+}
+/* Regla de diseño predictivo para textos largos en los desplegables de Materialize */
+.dropdown-content li > span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .card-agenda {
     border-radius: 12px;
     padding: 10px;
@@ -58,14 +66,14 @@ body {
 }
 
 .select-wrapper input.select-dropdown {
-    font-size: 12px;
-    height: 29px;
-    margin: 0 0 21px 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-input:not([type]),
+/*input:not([type]),
 input[type="date"]:not(.browser-default),
 textarea.materialize-textarea {
     height: 2rem;
     font-size: 12px;
-}
+}*/         

@@ -1,7 +1,7 @@
 package Controlador;
 
-import Modelo.registro.RegistroDAO;
-import Modelo.registro.RegistroVO;
+import modelo.registro.RegistroDAO;
+import modelo.registro.RegistroVO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

@@ -1,7 +1,7 @@
-package Modelo.registro;
+package modelo.registro;
 
-import Modelo.registro.ProfesionalVO;
-import Modelo.registro.RegistroVO;
+import modelo.registro.ProfesionalVO;
+import modelo.registro.RegistroVO;
 import Recursos.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

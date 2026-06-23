@@ -2,8 +2,8 @@ package Controlador;
 
 // CORRECCIÓN DE IMPORTS: Apuntando al paquete correcto 'Modelo.profesional'
 
-import Modelo.registro.ProfesionalDAO;
-import Modelo.registro.RegistroVO;
+import modelo.registro.ProfesionalDAO;
+import modelo.registro.RegistroVO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

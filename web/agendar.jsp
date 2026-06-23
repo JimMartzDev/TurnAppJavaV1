@@ -32,25 +32,30 @@
                         <p class="grey-text">Completa los datos para agendar tu cita</p>
                     </div>
 
-                    <form action="CitaController" method="POST">
+                    <c:if test="${not empty mensajeExito}">
+                        <div class="card-panel green lighten-4 green-text text-darken-4 center-align">
+                            ${mensajeExito}
+                        </div>
+                    </c:if>
+                    <c:if test="${not empty mensajeError}">
+                        <div class="card-panel red lighten-4 red-text text-darken-4 center-align">
+                            ${mensajeError}
+                        </div>
+                    </c:if>
 
+                    <form action="CitaController" method="POST">
                         <div class="form-section">
 
-                         
                             <div class="input-field">
                                 <select name="idProfesional" id="select-profesional" required>
-                                    <option value="" disabled selected>-- Elige un profesional --</option>
-                                 
+                                    <option value="" disabled selected>Elige un profesional</option>
+                                    <c:forEach var="profesional" items="${listaProfesionales}">
+                                        <option value="${profesional.idProfesional}">${profesional.nombre} ${profesional.apellido} - (${profesional.especialidadPrincipal}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
 
-                            <div class="input-field">
-                                <select name="idServicio" id="select-servicio" required>
-                                    <option value="" disabled selected>-- Selecciona el servicio --</option>
-                                    <option value="1">Corte de Cabello</option>
-                                    <option value="2">Barba y Perfilado</option>
-                                </select>
-                            </div>
+                            <input type="hidden" name="idServicio" value="1" />
 
                             <div class="input-field">
                                 <input type="date" name="fechaCita" id="fecha-cita" required />
@@ -58,10 +63,7 @@
 
                             <div class="input-field">
                                 <select name="horaCita" id="select-hora" required>
-                                    <option value="" disabled selected>-- Selecciona la hora --</option>
-                                    <option value="09:00:00">09:00 AM</option>
-                                    <option value="10:00:00">10:00 AM</option>
-                                    <option value="11:00:00">11:00 AM</option>
+                                    <option value="" disabled selected>Selecciona la hora</option>
                                 </select>
                             </div>
 
@@ -77,8 +79,8 @@
                                 Agendar
                             </button>
                         </div>
-
-                    </form> </div>
+                    </form> 
+                </div>
             </div>
         </div>
 
@@ -86,12 +88,84 @@
 
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                // Activa todos los elementos select y componentes de texto de Materialize
+
+                // Inicialización global de selectores con restricción de ancho activa
                 var selects = document.querySelectorAll("select");
-                M.FormSelect.init(selects);
+                M.FormSelect.init(selects, {
+                    dropdownOptions: {
+                        constrainWidth: true // CORRECCIÓN LÓGICA: Fuerza al menú a medir lo mismo que el input nativo
+                    }
+                });
 
                 var textareas = document.querySelectorAll(".materialize-textarea");
                 M.CharacterCounter.init(textareas);
+
+                // Captura de nodos esenciales del DOM
+                const selectProfesional = document.getElementById("select-profesional");
+                const inputFecha = document.getElementById("fecha-cita");
+                const selectHora = document.getElementById("select-hora");
+
+                // Método de implementación para la consulta de disponibilidad
+                function actualizarHorarios() {
+                    const idProf = selectProfesional.value;
+                    const fecha = inputFecha.value;
+
+                    // Validación de precondición antes de disparar la petición HTTP
+                    if (idProf && fecha) {
+
+                        // Matriz maestra de turnos del negocio (Formato 24h)
+                        const horarioMaestro = [
+                            "08:00:00", "09:00:00", "10:00:00", "11:00:00",
+                            "14:00:00", "15:00:00", "16:00:00", "17:00:00"
+                        ];
+
+                        // Mapeo de formato visual para mejorar la experiencia de usuario (UX)
+                        const formatoAMPM = {
+                            "08:00:00": "08:00 AM", "09:00:00": "09:00 AM", "10:00:00": "10:00 AM", "11:00:00": "11:00 AM",
+                            "14:00:00": "02:00 PM", "15:00:00": "03:00 PM", "16:00:00": "04:00 PM", "17:00:00": "05:00 PM"
+                        };
+
+                        // CORRECCIÓN DE ENRUTAMIENTO: Uso de la ruta de contexto dinámica del servidor Java
+                        const urlContexto = "${pageContext.request.contextPath}/CitaController?accion=consultarDisponibilidad&idProfesional=" + idProf + "&fechaCita=" + fecha;
+
+                        fetch(urlContexto)
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error("Falla en la respuesta del servidor de control");
+                                    }
+                                    return response.json();
+                                })
+                                .then(horasOcupadas => {
+                                    // Limpieza del nodo del DOM
+                                    selectHora.innerHTML = '<option value="" disabled selected>Selecciona la hora</option>';
+
+                                    // Algoritmo de filtrado inverso (Exclusión de elementos coincidentes)
+                                    const horasDisponibles = horarioMaestro.filter(hora => !horasOcupadas.includes(hora));
+
+                                    // Inyección dinámica de nuevos nodos <option>
+                                    horasDisponibles.forEach(hora => {
+                                        const option = document.createElement("option");
+                                        option.value = hora;
+                                        option.textContent = formatoAMPM[hora] || hora;
+                                        selectHora.appendChild(option);
+                                    });
+
+                                    // RE-INICIALIZACIÓN CRÍTICA: Materialize requiere reconstruir el componente visual
+                                    M.FormSelect.init(selectHora, {
+                                        dropdownOptions: {
+                                            constrainWidth: true // Mantiene consistencia visual y evita desbordamiento
+                                        }
+                                    });
+                                })
+                                .catch(error => {
+                                    console.error("Error en el flujo asíncrono de disponibilidad: ", error);
+                                });
+                    }
+                }
+
+                // Asignación de escuchadores de eventos para reactividad en la UI
+                inputFecha.addEventListener("change", actualizarHorarios);
+                selectProfesional.addEventListener("change", actualizarHorarios);
             });
         </script>
     </body>

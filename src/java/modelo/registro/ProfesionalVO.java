@@ -1,15 +1,15 @@
-package Modelo.registro;
+package modelo.registro;
 
 /**
  * @author jimma
  */
 public class ProfesionalVO {
-    
+
     // Atributos propios de la tabla 'profesional'
     private int idProfesional;
     private int idUsuario;
     private String especialidadPrincipal; // Mapea a especialidad_principal en la BD
-    
+
     // Atributos heredados del JOIN con la tabla 'usuario' (Para mostrar en la interfaz)
     private String nombre;
     private String apellido;
@@ -28,7 +28,6 @@ public class ProfesionalVO {
     }
 
     // 3. GETTERS Y SETTERS (El estándar que tu JSP leerá con Expression Language)
-
     public int getIdProfesional() {
         return idProfesional;
     }
@@ -49,8 +48,8 @@ public class ProfesionalVO {
         return especialidadPrincipal;
     }
 
-    public void setEspecialidadPrincipal(String LaurelEspecialidad) {
-        this.especialidadPrincipal= especialidadPrincipal;
+    public void setEspecialidadPrincipal(String especialidadPrincipal) {
+        this.especialidadPrincipal = especialidadPrincipal;
     }
 
     public String getNombre() {
