@@ -33,19 +33,19 @@
                     </div>
 
                     <c:if test="${not empty mensajeExito}">
-                        <div class="card-panel green lighten-4 green-text text-darken-4 center-align">
+                        <div class="green-text text-darken-2 center-align">
                             ${mensajeExito}
                         </div>
                     </c:if>
                     <c:if test="${not empty mensajeError}">
-                        <div class="card-panel red lighten-4 red-text text-darken-4 center-align">
+                        <div class="red-text text-darken-2 center-align">
                             ${mensajeError}
                         </div>
                     </c:if>
 
                     <form action="CitaController" method="POST">
                         <div class="form-section">
-
+                            <input type="hidden" name="accion" value="registrar" />
                             <div class="input-field">
                                 <select name="idProfesional" id="select-profesional" required>
                                     <option value="" disabled selected>Elige un profesional</option>

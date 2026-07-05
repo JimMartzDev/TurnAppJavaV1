@@ -5,11 +5,8 @@
 package modelo.registro;
 //importamos librerías
 
-import modelo.usuario.UsuarioVO;
 import Recursos.Conexion;
-import java.util.LinkedList;
 import java.sql.*;
-import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

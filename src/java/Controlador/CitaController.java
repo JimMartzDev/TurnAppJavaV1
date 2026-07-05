@@ -120,9 +120,9 @@ public class CitaController extends HttpServlet {
         boolean operacionExitosa = citaDao.registrarCita(cita);
 
         if (operacionExitosa) {
-            request.setAttribute("mensajeExito", "¡Excelente! Tu turno ha sido agendado exitosamente.");
+            request.setAttribute("mensajeExito", "Turno agendado exitosamente.");
         } else {
-            request.setAttribute("mensajeError", "No se pudo completar el agendamiento. Por favor, verifica e intenta de nuevo.");
+            request.setAttribute("mensajeError", "No se pudo completar el agendamiento.");
         }
 
         // Volvemos a cargar únicamente los profesionales para el formulario de vuelta
