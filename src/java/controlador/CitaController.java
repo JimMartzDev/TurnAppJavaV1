@@ -105,7 +105,7 @@ public class CitaController extends HttpServlet {
         Integer idCliente = (Integer) sesion.getAttribute("idUsuarioLogueado");
 
         if (idCliente == null) {
-            idCliente = 1; // Respaldo para pruebas locales
+            idCliente = 4; // Respaldo para pruebas locales
         }
 
         int idProfesional = Integer.parseInt(request.getParameter("idProfesional"));

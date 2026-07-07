@@ -6,6 +6,9 @@ body.flex-container {
     margin: 0;
     font-family: 'Poppins', sans-serif;
 }
+.card .card-content {
+    padding: 40px;
+}
 
 img.responsive-img{
     max-width: 250px;

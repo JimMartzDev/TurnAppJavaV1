@@ -1,4 +1,4 @@
-package Controlador;
+package controlador;
 
 import modelo.registro.RegistroDAO;
 import modelo.registro.RegistroVO;

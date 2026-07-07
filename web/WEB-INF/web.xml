@@ -2,11 +2,11 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>ValidarAcceso</servlet-name>
-        <servlet-class>Controlador.ValidarAcceso</servlet-class>
+        <servlet-class>controlador.ValidarAcceso</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegistroController</servlet-name>
-        <servlet-class>Controlador.RegistroController</servlet-class>
+        <servlet-class>controlador.RegistroController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ValidarAcceso</servlet-name>

@@ -1,4 +1,4 @@
-package Controlador;
+package controlador;
 
 // CORRECCIÓN DE IMPORTS: Apuntando al paquete correcto 'Modelo.profesional'
 

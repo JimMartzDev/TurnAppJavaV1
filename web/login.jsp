@@ -25,6 +25,13 @@
     <body class="grey lighten-4 flex-container">
         <div class="card z-depth-2">
             <div class="card-content">
+                <div class="row" style="margin-bottom: 0;">
+                        <div class="col s12">
+                            <a href="${pageContext.request.contextPath}/index.jsp" class="teal-text text-darken-2">
+                                <i class="material-icons">arrow_back</i>
+                            </a>
+                        </div>
+                    </div>
                 <div class="center-align">
                     <img src="${pageContext.request.contextPath}/img/logo.png" class="responsive-img" />
                     <p class="grey-text">Bienvenido</p>

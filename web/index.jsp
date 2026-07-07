@@ -93,7 +93,7 @@
                             </div>
                             <div class="card-action center-align">
                                 <a
-                                    href="agendar.jsp"
+                                    href="CitaController?accion=cargarPantalla"
                                     class="btn btn-custom waves-effect waves-light black-text"
                                     >Reservar</a
                                 >
@@ -111,7 +111,7 @@
                             </div>
                             <div class="card-action center-align">
                                 <a
-                                    href="agendar.jsp"
+                                    href="CitaController?accion=cargarPantalla"
                                     class="btn btn-custom waves-effect waves-light black-text"
                                     >Reservar</a
                                 >
@@ -129,7 +129,7 @@
                             </div>
                             <div class="card-action center-align">
                                 <a
-                                    href="agendar.jsp"
+                                    href="CitaController?accion=cargarPantalla"
                                     class="btn btn-custom waves-effect waves-light black-text"
                                     >Reservar</a
                                 >

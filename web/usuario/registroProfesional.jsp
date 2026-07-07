@@ -46,7 +46,7 @@
                             String respuesta = (String) request.getAttribute("respuesta");
                             if (respuesta != null) {
                         %>
-                        <div class="card-panel teal lighten-4 teal-text text-darken-4" style="margin-top: 15px; padding: 10px; border-radius: 8px;">
+                        <div class="teal-text text-darken-4 center-align" style="margin-top: 15px;">
                             <%= respuesta%>
                         </div>
                         <%
