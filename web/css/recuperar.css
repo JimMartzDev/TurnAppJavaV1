@@ -1,4 +1,4 @@
-/* recuperar.css - Estilos exclusivos para la recuperación de contraseña */
+
 
 .flex-container {
     display: flex;
@@ -16,7 +16,7 @@
 }
 
 .recovery-card .title {
-    color: #757575 !important; /* Gris intermedio de Materialize */
+    color: #757575 !important;
     font-weight: 500;
     margin-top: 10px;
 }

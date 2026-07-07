@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-// REPARADO: Eliminado el import de ServicioDAO que no existe
+
 import modelo.cita.CitaDAO;
 import modelo.cita.CitaVO;
 
@@ -47,8 +47,8 @@ public class CitaController extends HttpServlet {
     private void cargarDatosAgendamiento(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Únicamente traemos la lista de profesionales
-        String sql = "SELECT p.*, s.nombre_servicio FROM profesional p JOIN ..."; // Referencia mental de tu DB
+       
+        String sql = "SELECT p.*, s.nombre_servicio FROM profesional p JOIN ..."; 
         ProfesionalDAO profesionalDao = new ProfesionalDAO();
         request.setAttribute("listaProfesionales", profesionalDao.listarProfesionales());
 
@@ -58,11 +58,11 @@ public class CitaController extends HttpServlet {
     private void procesarDisponibilidadAjax(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Definición estricta de cabeceras HTTP para transferencia de datos estructurados
+        
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        // Bloque defensivo para evitar excepciones de parseo si los parámetros llegan nulos
+      
         String strIdProfesional = request.getParameter("idProfesional");
         String fechaCita = request.getParameter("fechaCita");
 
@@ -82,7 +82,7 @@ public class CitaController extends HttpServlet {
             horasOcupadas = new java.util.ArrayList<>();
         }
 
-        // Serialización manual eficiente a JSON utilizando StringBuilder
+      
         try (PrintWriter out = response.getWriter()) {
             StringBuilder json = new StringBuilder("[");
             for (int i = 0; i < horasOcupadas.size(); i++) {
@@ -94,7 +94,7 @@ public class CitaController extends HttpServlet {
             json.append("]");
 
             out.print(json.toString());
-            out.flush(); // Fuerza la salida del flujo antes del cierre automático del bloque try-with-resources
+            out.flush(); 
         }
     }
 
@@ -105,11 +105,11 @@ public class CitaController extends HttpServlet {
         Integer idCliente = (Integer) sesion.getAttribute("idUsuarioLogueado");
 
         if (idCliente == null) {
-            idCliente = 4; // Respaldo para pruebas locales
+            idCliente = 4; 
         }
 
         int idProfesional = Integer.parseInt(request.getParameter("idProfesional"));
-        int idServicio = Integer.parseInt(request.getParameter("idServicio")); // Recibe el parámetro oculto
+        int idServicio = Integer.parseInt(request.getParameter("idServicio")); 
         String fechaCita = request.getParameter("fechaCita");
         String horaCita = request.getParameter("horaCita");
         String notasCliente = request.getParameter("notasCliente");
@@ -125,7 +125,7 @@ public class CitaController extends HttpServlet {
             request.setAttribute("mensajeError", "No se pudo completar el agendamiento.");
         }
 
-        // Volvemos a cargar únicamente los profesionales para el formulario de vuelta
+    
         ProfesionalDAO profesionalDao = new ProfesionalDAO();
         request.setAttribute("listaProfesionales", profesionalDao.listarProfesionales());
 

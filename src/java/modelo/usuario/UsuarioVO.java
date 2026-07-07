@@ -4,16 +4,13 @@
  */
 package modelo.usuario;
 
-/**
- *
- * @author jimma
- */
+
 public class UsuarioVO {
     private String usuario;
     private String password;
 
     
-    // Definir constructor
+   
     public UsuarioVO(String usuario, String password) {
         this.usuario = usuario;
         this.password = password;
@@ -24,7 +21,7 @@ public class UsuarioVO {
         this.password = "";
     }
     
-    //Definir constructores getters and setters
+
 
     public String getUsuario() {
         return usuario;

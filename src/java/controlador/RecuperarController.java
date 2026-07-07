@@ -10,10 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebServlet;
 
-/**
- * @author jimma
- */
-@WebServlet(name = "RecuperarController", urlPatterns = {"/RecuperarController"}) // <-- 2. AGREGAR ESTA ANOTACIÓN AQUÍ
+
+@WebServlet(name = "RecuperarController", urlPatterns = {"/RecuperarController"}) 
 public class RecuperarController extends HttpServlet {
 
     private RegistroDAO registroDAO;
@@ -28,15 +26,15 @@ public class RecuperarController extends HttpServlet {
 
         if (accion != null) {
 
-            // FASE 1: Verificar si el correo existe en la base de datos
+          
             if (accion.equals("verificarCorreo")) {
                 String correo = request.getParameter("txtCorreo");
 
-                // Usamos el método que ya tenías para buscar por correo
+              
                 RegistroVO usuario = registroDAO.EncontrarUsuarioPorCorreo(correo);
 
                 if (usuario.getCorreo() != null && !usuario.getCorreo().equals("")) {
-                    // Si el correo existe, guardamos el correo en el request y activamos el paso 2
+                    
                     request.setAttribute("correoUsuario", correo);
                     request.setAttribute("paso", "2");
                 } else {
@@ -46,23 +44,23 @@ public class RecuperarController extends HttpServlet {
 
                 rd = request.getRequestDispatcher("recuperar.jsp");
                 rd.forward(request, response);
-            } // FASE 2: Validar contraseñas nuevas y actualizar en MySQL
+            } 
             else if (accion.equals("cambiarPassword")) {
                 String correo = request.getParameter("txtCorreoConfirmado");
                 String nuevaPas = request.getParameter("txtNuevaPas");
                 String confirmarPas = request.getParameter("txtConfirmarPas");
 
-                // Validamos en memoria que coincidan las dos contraseñas
+               
                 if (nuevaPas == null || confirmarPas == null || !nuevaPas.equals(confirmarPas)) {
                     request.setAttribute("mensaje", "La contraseña no coincide.");
                     request.setAttribute("correoUsuario", correo);
-                    request.setAttribute("paso", "2"); // Lo devolvemos al formulario de contraseñas
+                    request.setAttribute("paso", "2"); // 
                 } else {
-                    // Intentamos actualizar la contraseña en la Base de Datos
+                
                     boolean exito = registroDAO.actualizarPassword(correo, nuevaPas);
 
                     if (exito) {
-                        // Si todo sale bien, lo mandamos al login con mensaje de éxito
+                        
                         request.setAttribute("mensaje", "Contraseña restablecida con éxito. Ya puedes ingresar.");
                         rd = request.getRequestDispatcher("login.jsp");
                         rd.forward(request, response);
@@ -80,7 +78,7 @@ public class RecuperarController extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

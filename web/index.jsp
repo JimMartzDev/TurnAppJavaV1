@@ -1,8 +1,4 @@
-<%-- 
-   Document   : index
-   Created on : 28/05/2026, 11:17:19 a. m.
-   Author     : jimma
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

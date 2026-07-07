@@ -1,24 +1,17 @@
 package modelo.registro;
 
-/**
- * @author jimma
- */
 public class ProfesionalVO {
 
-    // Atributos propios de la tabla 'profesional'
     private int idProfesional;
     private int idUsuario;
-    private String especialidadPrincipal; // Mapea a especialidad_principal en la BD
+    private String especialidadPrincipal;
 
-    // Atributos heredados del JOIN con la tabla 'usuario' (Para mostrar en la interfaz)
     private String nombre;
     private String apellido;
 
-    // 1. Constructor vacío (Esencial para inicializarlo en los métodos de búsqueda o DAO)
     public ProfesionalVO() {
     }
 
-    // 2. Constructor completo
     public ProfesionalVO(int idProfesional, int idUsuario, String especialidadPrincipal, String nombre, String apellido) {
         this.idProfesional = idProfesional;
         this.idUsuario = idUsuario;
@@ -27,7 +20,6 @@ public class ProfesionalVO {
         this.apellido = apellido;
     }
 
-    // 3. GETTERS Y SETTERS (El estándar que tu JSP leerá con Expression Language)
     public int getIdProfesional() {
         return idProfesional;
     }

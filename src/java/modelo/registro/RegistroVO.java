@@ -4,13 +4,10 @@
  */
 package modelo.registro;
 
-/**
- *
- * @author jimma
- */
+
 public class RegistroVO {
     
-    //Atributos
+   
     private String nombre;
     private String apellido;
     private String tipoDocumento;
@@ -20,7 +17,7 @@ public class RegistroVO {
     private String password;
     
     
-    // Constructor
+ 
 
     public RegistroVO(String nombre, String apellido, String tipoDocumento, String numIdentificacion, String fechaNac, String correo, String password) {
         this.nombre = nombre;
@@ -44,7 +41,7 @@ public class RegistroVO {
     }
      
     
-    // getters and setters
+
 
     public String getNombre() {
         return nombre;

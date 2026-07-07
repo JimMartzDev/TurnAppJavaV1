@@ -1,8 +1,8 @@
 body.flex-container {
     display: flex;
-    justify-content: center; /* Centrado horizontal */
-    align-items: center;     /* Centrado vertical */
-    min-height: 100vh;       /* Obliga al cuerpo a medir toda la pantalla */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     margin: 0;
     font-family: 'Poppins', sans-serif;
 }
@@ -15,23 +15,23 @@ img.responsive-img{
     max-height: 250px;
 }
 
-/* Controla el ancho de la tarjeta para que mantenga buena forma */
+
 .card {
     width: 100%;
     max-width: 420px;
     border-radius: 10px;
 }
 
-/* Aplica Flexbox a la fila de recordar contraseña */
+
 .options-row {
     display: flex;
-    justify-content: space-between; /* Separa el checkbox del enlace hacia los extremos */
-    align-items: center;            /* Los alinea perfectamente en el centro vertical */
+    justify-content: space-between;
+    align-items: center;
     margin-top: 15px;
     margin-bottom: 25px;
 }
 
-/* Espaciado superior para el botón de Google y la sección de registro */
+
 .btn-google-container {
     margin-top: 15px;
 }

@@ -10,13 +10,11 @@ import Recursos.Conexion;
 
 public class CitaDAO {
 
-    // Cambiamos la clave local a una constante unificada para evitar confusiones de dedo
     private static final String DB_CLAVE = "Chocolate123*";
 
     public List<String> listarHorasOcupadas(int idProfesional, String fecha) {
         List<String> horasOcupadas = new ArrayList<>();
 
-        // Mantener el filtro de tu base de datos actual para los turnos del negocio
         String sql = "SELECT TIME(fecha_hora) AS hora FROM cita "
                 + "WHERE id_profesional = ? AND DATE(fecha_hora) = ? AND estado IN ('pendiente', 'confirmado')";
 
@@ -39,7 +37,7 @@ public class CitaDAO {
         } catch (SQLException e) {
             System.err.println("Error en CitaDAO.listarHorasOcupadas: " + e.getMessage());
         } finally {
-            // Cierre explícito de los recursos internos del método antes de cerrar la conexión general
+
             try {
                 if (resultado != null) {
                     resultado.close();

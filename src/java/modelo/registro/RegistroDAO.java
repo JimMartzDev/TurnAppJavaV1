@@ -3,17 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package modelo.registro;
-//importamos librerías
+
 
 import Recursos.Conexion;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author jimma
- */
+
 public class RegistroDAO {
 
     private static Connection con;
@@ -25,17 +22,17 @@ public class RegistroDAO {
     }
 
     public String registrarUsuario(RegistroVO registroVO) {
-        // Inicializamos el mensaje de manera interna
+       
         String mensaje = "";
         PreparedStatement pst = null;
 
         try {
-            // CORRECCIÓN: Añadido el paréntesis de cierre ) al final de los VALUES
+           
             String sql = "INSERT INTO usuario (nombre, apellido, tipo_documento, num_identificacion, fecha_nacimiento, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             pst = con.prepareStatement(sql);
 
-            // Pasamos los datos del VO al PreparedStatement
+        
             pst.setString(1, registroVO.getNombre());
             pst.setString(2, registroVO.getApellido());
             pst.setString(3, registroVO.getTipoDocumento());
@@ -44,18 +41,18 @@ public class RegistroDAO {
             pst.setString(6, registroVO.getCorreo());
             pst.setString(7, registroVO.getPassword());
 
-            // Ejecutamos la inserción en la base de datos
+           
             pst.executeUpdate();
 
             mensaje = "Usuario registrado con éxito";
             System.out.println("Usuario registrado exitosamente.");
 
         } catch (SQLException ex) {
-            // Registramos el error en la consola del servidor para poder debugar
+          
             Logger.getLogger(RegistroDAO.class.getName()).log(Level.SEVERE, "Error al registrar usuario: " + ex.getMessage(), ex);
             mensaje = "No se pudo registrar el usuario debido a un error interno.";
         } finally {
-            // Buena práctica: Cerramos el PreparedStatement para liberar memoria de la base de datos
+           
             try {
                 if (pst != null) {
                     pst.close();
@@ -105,7 +102,7 @@ public class RegistroDAO {
             rs = pst.executeQuery();
 
             if (rs.next()) {
-                // Si lo encuentra, llenamos el VO para indicar que el correo ya existe
+           
                 registroVO.setCorreo(rs.getString("email"));
                 registroVO.setNumIdentificacion(rs.getString("num_identificacion"));
             }
@@ -136,7 +133,7 @@ public class RegistroDAO {
             pst.setString(1, nuevaPassword);
             pst.setString(2, correo);
 
-            // executeUpdate devuelve la cantidad de filas afectadas en MySQL
+         
             int filasAfectadas = pst.executeUpdate();
             if (filasAfectadas > 0) {
                 actualizado = true;

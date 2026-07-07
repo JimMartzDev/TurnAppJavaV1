@@ -1,8 +1,4 @@
-<%-- 
-    Document   : agendar 
-    Created on : 28/05/2026, 1:58:00 p. m.
-    Author     : jimma
---%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -89,11 +85,11 @@
         <script>
             document.addEventListener("DOMContentLoaded", function () {
 
-                // Inicialización global de selectores con restricción de ancho activa
+
                 var selects = document.querySelectorAll("select");
                 M.FormSelect.init(selects, {
                     dropdownOptions: {
-                        constrainWidth: true // CORRECCIÓN LÓGICA: Fuerza al menú a medir lo mismo que el input nativo
+                        constrainWidth: true
                     }
                 });
 
@@ -104,28 +100,19 @@
                 const selectProfesional = document.getElementById("select-profesional");
                 const inputFecha = document.getElementById("fecha-cita");
                 const selectHora = document.getElementById("select-hora");
-
-                // Método de implementación para la consulta de disponibilidad
                 function actualizarHorarios() {
                     const idProf = selectProfesional.value;
                     const fecha = inputFecha.value;
-
-                    // Validación de precondición antes de disparar la petición HTTP
                     if (idProf && fecha) {
-
-                        // Matriz maestra de turnos del negocio (Formato 24h)
                         const horarioMaestro = [
                             "08:00:00", "09:00:00", "10:00:00", "11:00:00",
                             "14:00:00", "15:00:00", "16:00:00", "17:00:00"
                         ];
-
-                        // Mapeo de formato visual para mejorar la experiencia de usuario (UX)
                         const formatoAMPM = {
                             "08:00:00": "08:00 AM", "09:00:00": "09:00 AM", "10:00:00": "10:00 AM", "11:00:00": "11:00 AM",
                             "14:00:00": "02:00 PM", "15:00:00": "03:00 PM", "16:00:00": "04:00 PM", "17:00:00": "05:00 PM"
                         };
 
-                        // CORRECCIÓN DE ENRUTAMIENTO: Uso de la ruta de contexto dinámica del servidor Java
                         const urlContexto = "${pageContext.request.contextPath}/CitaController?accion=consultarDisponibilidad&idProfesional=" + idProf + "&fechaCita=" + fecha;
 
                         fetch(urlContexto)
@@ -136,24 +123,17 @@
                                     return response.json();
                                 })
                                 .then(horasOcupadas => {
-                                    // Limpieza del nodo del DOM
                                     selectHora.innerHTML = '<option value="" disabled selected>Selecciona la hora</option>';
-
-                                    // Algoritmo de filtrado inverso (Exclusión de elementos coincidentes)
                                     const horasDisponibles = horarioMaestro.filter(hora => !horasOcupadas.includes(hora));
-
-                                    // Inyección dinámica de nuevos nodos <option>
                                     horasDisponibles.forEach(hora => {
                                         const option = document.createElement("option");
                                         option.value = hora;
                                         option.textContent = formatoAMPM[hora] || hora;
                                         selectHora.appendChild(option);
                                     });
-
-                                    // RE-INICIALIZACIÓN CRÍTICA: Materialize requiere reconstruir el componente visual
                                     M.FormSelect.init(selectHora, {
                                         dropdownOptions: {
-                                            constrainWidth: true // Mantiene consistencia visual y evita desbordamiento
+                                            constrainWidth: true
                                         }
                                     });
                                 })
@@ -162,8 +142,6 @@
                                 });
                     }
                 }
-
-                // Asignación de escuchadores de eventos para reactividad en la UI
                 inputFecha.addEventListener("change", actualizarHorarios);
                 selectProfesional.addEventListener("change", actualizarHorarios);
             });

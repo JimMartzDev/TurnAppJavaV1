@@ -1,95 +1,95 @@
 body {
-  background-color: #f5f6f8;
+    background-color: #f5f6f8;
 }
 
 .main-nav {
-  background-color: white;
-  padding: 0 20px;
+    background-color: white;
+    padding: 0 20px;
 }
 
 .hero p {
-  color: #777;
+    color: #777;
 }
 
 .card-category {
-  border-radius: 12px;
+    border-radius: 12px;
 }
 
 .card-category img {
-  border-radius: 8px;
-  height: 160px;
-  object-fit: cover;
+    border-radius: 8px;
+    height: 160px;
+    object-fit: cover;
 }
 
 .btn-custom:hover {
-  background-color: #57a05a;
+    background-color: #57a05a;
 }
 
 .logo {
-  max-height: 50px;
-  width: auto;
-  height: auto;
-  display: block;
-  margin: 0 auto;
+    max-height: 50px;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
 .nav-icons a {
-  color: #66bb6a;
-  font-size: 24px;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  transition:
-    color 0.2s ease,
-    transform 0.2s ease;
+    color: #66bb6a;
+    font-size: 24px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
 }
 
 .nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
 }
 
 .nav-icons {
-  display: flex;
-  gap: 30px;
-  margin-right: 40px;
+    display: flex;
+    gap: 30px;
+    margin-right: 40px;
 }
 
 .btn-custom {
-  background-color: #66bb6a;
-  color: #66bb6a;
-  border: none;
-  border-radius: 6px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  transition: all 0.1s ease-in-out;
+    background-color: #66bb6a;
+    color: #66bb6a;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.1s ease-in-out;
 }
 
 .btn-custom:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(2px);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
 }
 
 .row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
 }
 .col {
-  display: flex;
+    display: flex;
 }
 .card {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 .card-content {
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
 .material-icons {
-  color: #66bb6a;
+    color: #66bb6a;
 }

@@ -8,9 +8,9 @@ body {
 }
 
 body, .page-center {
-    overflow-x: hidden; /* Evita cualquier barra de desplazamiento horizontal residual */
+    overflow-x: hidden;
 }
-/* Regla de diseño predictivo para textos largos en los desplegables de Materialize */
+
 .dropdown-content li > span {
     white-space: nowrap;
     overflow: hidden;
@@ -71,9 +71,3 @@ body, .page-center {
     overflow: hidden;
 }
 
-/*input:not([type]),
-input[type="date"]:not(.browser-default),
-textarea.materialize-textarea {
-    height: 2rem;
-    font-size: 12px;
-}*/         
