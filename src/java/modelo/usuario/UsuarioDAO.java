@@ -4,7 +4,6 @@
  */
 package modelo.usuario;
 
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
@@ -21,9 +20,10 @@ public class UsuarioDAO {
         con = conexion.getConexion();
     }
 
-    public boolean validarUsuario(String password, String usuario) {
-        boolean encontro = false;
+    public UsuarioVO validarUsuario(String password, String usuario) {
+
         String sql = "SELECT * FROM usuario WHERE password = ?  and num_identificacion = ?";
+        UsuarioVO usuarioData = null;
         PreparedStatement ps;
 
         try {
@@ -32,7 +32,10 @@ public class UsuarioDAO {
             ps.setString(2, usuario);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                encontro = true;
+                usuarioData = new UsuarioVO();
+                usuarioData.setNombre(rs.getString("nombre"));
+                usuarioData.setApellido(rs.getString("apellido"));
+
             }
 
         } catch (SQLException ex) {
@@ -41,7 +44,7 @@ public class UsuarioDAO {
 
         }
 
-        return encontro;
+        return usuarioData;
 
     }
 }

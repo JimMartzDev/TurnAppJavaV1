@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import modelo.usuario.UsuarioDAO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebServlet;
+import modelo.usuario.UsuarioVO;
 
 
 @WebServlet(name = "ValidarAcceso", urlPatterns = {"/ValidarAcceso"})
@@ -22,13 +23,15 @@ public class ValidarAcceso extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UsuarioDAO loginDAO=new UsuarioDAO();
-        boolean resultado = false;
         RequestDispatcher rd=null;
         String password = request.getParameter("txtPas");
         String usuario = request.getParameter("txtUsu");     
-        resultado = loginDAO.validarUsuario(password, usuario);
-        if (resultado){
+        UsuarioVO resultado = loginDAO.validarUsuario(password, usuario);
+        
+        if (resultado != null){
+            request.setAttribute("mensaje", "Ha ingreso con exito");
             rd = request.getRequestDispatcher("index.jsp");
+         
 
         }else{
             

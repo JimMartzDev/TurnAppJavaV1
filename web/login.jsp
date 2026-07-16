@@ -68,8 +68,11 @@
                                 ? "green-text text-darken-2"
                                 : "red-text text-darken-2";
 
+                        
                         out.print("<div class='center-align " + colorClase + "' style='margin-top: 10px; font-weight: 500;'>" + msg + "</div>");
+                        
                     }
+                    
                 %>
 
                 <div class="center-align btn-google-container">
