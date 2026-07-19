@@ -29,8 +29,9 @@ public class ValidarAcceso extends HttpServlet {
         UsuarioVO resultado = loginDAO.validarUsuario(password, usuario);
         
         if (resultado != null){
-            request.setAttribute("mensaje", "Ha ingreso con exito");
-            rd = request.getRequestDispatcher("index.jsp");
+            request.setAttribute("nombre", resultado.getNombre());
+            request.setAttribute("apellido", resultado.getApellido());
+            rd = request.getRequestDispatcher("login.jsp");
          
 
         }else{

@@ -19,7 +19,10 @@ public class UsuarioDAO {
         Conexion conexion = new Conexion("localhost", "turnapp_db", "root", "Chocolate123*");
         con = conexion.getConexion();
     }
-
+    
+    /**
+     * Esta función sirve
+     */
     public UsuarioVO validarUsuario(String password, String usuario) {
 
         String sql = "SELECT * FROM usuario WHERE password = ?  and num_identificacion = ?";
